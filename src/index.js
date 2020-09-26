@@ -1,5 +1,22 @@
-import readline from 'readline-sync';
+import fs from 'fs';
 
-const name = readline.question('What your name? ');
+import directoryConfig from './config/directory';
 
-console.log(`Hey ${name}`);
+function readFile() {
+  try {
+    const promse = fs.readFileSync(directoryConfig, 'utf-8');
+
+    return promse;
+  } catch (error) {
+    return error;
+  }
+}
+
+const result = readFile();
+
+if (result instanceof Error) {
+  console.log('Ops, um error ocorreu');
+  throw new Error('Um');
+}
+
+console.log(result);
